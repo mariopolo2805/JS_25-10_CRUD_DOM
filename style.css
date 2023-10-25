@@ -1,0 +1,29 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.list-item {
+  background-color: antiquewhite;
+  padding: 8px;
+}
+
+.list-item + .list-item {
+  margin-top: 8px;
+}
+
+.list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn + .btn {
+  margin-left: 12px;
+}
