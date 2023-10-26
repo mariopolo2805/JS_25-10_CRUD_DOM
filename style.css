@@ -9,8 +9,27 @@ html, body {
 }
 
 .list-item {
-  background-color: antiquewhite;
+  background-color: lightgray;
   padding: 8px;
+}
+
+.list-item__info {
+  display: flex;
+  justify-content: space-between;
+  flex: 1 0 auto;
+  padding: 0 30px;
+}
+
+.list-item__description {
+  display: flex;
+}
+
+.list-item__color {
+  display: flex;
+  width: 30px;
+  height: 20px;
+  margin-left: 20px;
+  border-radius: 5px;
 }
 
 .list-item + .list-item {
@@ -26,4 +45,21 @@ html, body {
 
 .btn + .btn {
   margin-left: 12px;
+}
+
+/* Colors */
+.bg-red {
+  background-color: #ff0000;
+}
+
+.bg-white {
+  background-color: #ffffee;
+}
+
+.bg-black {
+  background-color: #000011;
+}
+
+.bg-blue {
+  background-color: #0000ff;
 }
