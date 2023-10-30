@@ -57,6 +57,14 @@ const bbddStr = sessionStorage.getItem('bbdd_shoes');
 const list = JSON.parse(bbddStr) ?? backup_list;
 // sessionStorage.setItem('bbdd_shoes', JSON.stringify(list))
 
+// [DOM] Helpers
+const updateSelect = (select) => {
+  var instance = M.FormSelect.getInstance(select);
+  instance.destroy();
+  var selects = document.querySelectorAll('select');
+  M.FormSelect.init(selects);
+};
+
 
 // [DOM] Vars
 const container = document.getElementById('container');
@@ -102,13 +110,17 @@ const removeElement = (shoe, list, liElement) => {
 /***********************************************/
 
 // [Helper] - ADD
-const toggleCreateEditForm = () => {
-  // FIXME: :)
-  document.getElementById('create-and-edit-form').classList.toggle('hide');
+const openModal = () => {
+  // Close modal
+  const modal = document.getElementById('create-and-edit-form');
+  const instance = M.Modal.getInstance(modal);
+  instance.open();
   document.getElementById('btn-edit').classList.add('hide');
   document.getElementById('btn-add').classList.remove('hide');
   document.getElementById('name').value = '';
-  document.getElementById('color').value = '';
+  const select = document.getElementById('color');
+  select.value = '';
+  updateSelect(select);
   document.getElementById('price').value = '';
 }
 
@@ -145,7 +157,9 @@ const editElement = (shoe) => {
   document.getElementById('btn-add').classList.add('hide');
   document.getElementById('id').value = shoe.id;
   document.getElementById('name').value = shoe.name;
-  document.getElementById('color').value = shoe.color;
+  const select = document.getElementById('color');
+  select.value = shoe.color;
+  updateSelect(select);
   document.getElementById('price').value = shoe.price;
   M.updateTextFields();
 }
@@ -196,14 +210,9 @@ list.forEach((shoe, index) => {
   generateEventListeres(index, shoe, liElement);
 });
 
-// [DOM] Añade en el DOM el botón de mostrar
-// const btnShow = document.createElement('button');
-// btnShow.id = 'btn-show';
-// btnShow.classList = 'btn waves-effect waves-light blue';
-// btnShow.innerText = 'Mostrar/Ocultar formulario de creación';
-// btnShow.addEventListener('click', () => toggleCreateEditForm());
-// container.appendChild(btnShow);
-
+// [DOM] Vincula lógica de botón para abrir la modal
+const btnModal = document.getElementById('btn-modal');
+btnModal.addEventListener('click', () => openModal());
 // [DOM] Vincula lógica de botón de crear
 const btnAdd = document.getElementById('btn-add');
 btnAdd.addEventListener('click', () => addNewShoeToList());

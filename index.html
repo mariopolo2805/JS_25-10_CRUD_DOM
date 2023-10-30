@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./helpers.css">
   <script src="./index.js" defer></script>
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -17,7 +18,7 @@
     <ul id="list-shoes" class="list-shoes">
 
     </ul>
-    <a class="waves-effect waves-light btn modal-trigger" href="#create-and-edit-form">Crear</a>
+    <button id="btn-modal" type="button" class="btn waves-effect waves-light green">Crear</button>
   </div>
 
   <!-- Modal Structure -->
@@ -30,6 +31,8 @@
             <label class="active" for="name">Name</label>
             <input id="name" type="text">
           </div>
+          <!-- TODO: no hace update cuando debe -->
+          <!-- TODO: dentro de la modal, sale chiquito -->
           <div class="input-field col s4">
             <select id="color">
               <option value="" disabled selected>Color</option>
@@ -44,12 +47,13 @@
             <input id="price" type="number">
           </div>
         </div>
-        <button id="btn-add" type="button" class="btn waves-effect waves-light green">Crear</button>
-        <button id="btn-edit" type="button" class="btn waves-effect waves-light green darken-1 hide">Editar</button>
+        <p>Todos los campos son obligatorios, recuerde que esto es una herramienta de administración de zapatillas de fútbol.</p>
       </form>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
+      <button id="btn-add" type="button" class="btn waves-effect waves-light blue">Crear</button>
+      <button id="btn-edit" type="button" class="btn waves-effect waves-light light-blue hide">Editar</button>
+      <a href="#!" class="ml-20 modal-close waves-effect waves-green btn-flat">Cerrar</a>
     </div>
   </div>
 </body>
