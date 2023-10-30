@@ -17,26 +17,40 @@
     <ul id="list-shoes" class="list-shoes">
 
     </ul>
+    <a class="waves-effect waves-light btn modal-trigger" href="#create-and-edit-form">Crear</a>
   </div>
-  <div id="create-form" class="container hide">
-    <form action="">
-      <div class="row">
-        <div class="input-field col s4">
-          <label class="active" for="name">Name</label>
-          <input id="name" type="text">
+
+  <!-- Modal Structure -->
+  <div id="create-and-edit-form" class="modal">
+    <div class="modal-content">
+      <form action="">
+        <input class="hide" type="text" name="" id="id">
+        <div class="row">
+          <div class="input-field col s4">
+            <label class="active" for="name">Name</label>
+            <input id="name" type="text">
+          </div>
+          <div class="input-field col s4">
+            <select id="color">
+              <option value="" disabled selected>Color</option>
+              <option value="red">red</option>
+              <option value="black">black</option>
+              <option value="white">white</option>
+              <option value="blue">blue</option>
+            </select>
+          </div>
+          <div class="input-field col s4">
+            <label class="active" for="price">Precio</label>
+            <input id="price" type="number">
+          </div>
         </div>
-        <div class="input-field col s4">
-          <label class="active" for="color">Color</label>
-          <input id="color" type="text">
-          <!-- TODO: select -->
-        </div>
-        <div class="input-field col s4">
-          <label class="active" for="price">Precio</label>
-          <input id="price" type="number">
-        </div>
-      </div>
-      <button id="btn-add" type="button" class="btn waves-effect waves-light green">Crear</button>
-    </form>
+        <button id="btn-add" type="button" class="btn waves-effect waves-light green">Crear</button>
+        <button id="btn-edit" type="button" class="btn waves-effect waves-light green darken-1 hide">Editar</button>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
+    </div>
   </div>
 </body>
 </html>

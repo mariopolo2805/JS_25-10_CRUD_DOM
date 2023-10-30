@@ -51,11 +51,11 @@ const backup_list = [
     price: 150
   }
 ];
-// sessionStorage.setItem('bbdd_shoes', JSON.stringify(list))
 
 // Init
 const bbddStr = sessionStorage.getItem('bbdd_shoes');
 const list = JSON.parse(bbddStr) ?? backup_list;
+// sessionStorage.setItem('bbdd_shoes', JSON.stringify(list))
 
 
 // [DOM] Vars
@@ -102,8 +102,14 @@ const removeElement = (shoe, list, liElement) => {
 /***********************************************/
 
 // [Helper] - ADD
-const showCreateForm = () => {
-  document.getElementById('create-form').classList.toggle('hide');
+const toggleCreateEditForm = () => {
+  // FIXME: :)
+  document.getElementById('create-and-edit-form').classList.toggle('hide');
+  document.getElementById('btn-edit').classList.add('hide');
+  document.getElementById('btn-add').classList.remove('hide');
+  document.getElementById('name').value = '';
+  document.getElementById('color').value = '';
+  document.getElementById('price').value = '';
 }
 
 // [Helper] - ADD
@@ -128,13 +134,55 @@ const addNewShoeToList = () => {
 
 /***********************************************/
 
+// [Helper] - EDIT
+const editElement = (shoe) => {
+  // Open modal
+  const modal = document.getElementById('create-and-edit-form');
+  const instance = M.Modal.getInstance(modal);
+  instance.open();
+  // Init modal
+  document.getElementById('btn-edit').classList.remove('hide');
+  document.getElementById('btn-add').classList.add('hide');
+  document.getElementById('id').value = shoe.id;
+  document.getElementById('name').value = shoe.name;
+  document.getElementById('color').value = shoe.color;
+  document.getElementById('price').value = shoe.price;
+  M.updateTextFields();
+}
+
+// [Helper] - EDIT
+const editShoeInList = () => {
+  const id = document.getElementById('id').value;
+  const name = document.getElementById('name').value;
+  const color = document.getElementById('color').value;
+  const price = document.getElementById('price').value;
+
+  const editShoe = {
+    id,
+    name,
+    color,
+    price
+  }
+  const indexToEdit = findIndexShoeById(id);
+  list.splice(indexToEdit, 1, editShoe);
+  sessionStorage.setItem('bbdd_shoes', JSON.stringify(list));
+
+  const liElement = document.getElementById(`list-item-${id}`);
+  liElement.querySelector('.list-item__name').innerText = name;
+  liElement.querySelector('.list-item__color').className = `list-item__color bg-${color}`;
+  liElement.querySelector('.list-item__price').innerText = price + ' €';
+  // Close modal
+  const modal = document.getElementById('create-and-edit-form');
+  const instance = M.Modal.getInstance(modal);
+  instance.close();
+}
+
+/***********************************************/
+
 // [Helper] - DOM init
 const generateEventListeres = (index, shoe, liElement) => {
   const editBtn = document.getElementById('btn-edit-' + index);
-  editBtn.addEventListener('click', () => {
-    // TODO: editar
-    console.log('edit con id', shoe);
-  });
+  editBtn.addEventListener('click', () => editElement(shoe));
   const deleteBtn = document.getElementById('btn-delete-' + index);
   deleteBtn.addEventListener('click', () => removeElement(shoe, list, liElement));
 };
@@ -149,14 +197,24 @@ list.forEach((shoe, index) => {
 });
 
 // [DOM] Añade en el DOM el botón de mostrar
-const btnShow = document.createElement('button');
-btnShow.id = 'btn-show';
-btnShow.classList = 'btn waves-effect waves-light blue';
-btnShow.innerText = 'Mostrar/Ocultar formulario de creación';
-btnShow.addEventListener('click', () => showCreateForm());
-container.appendChild(btnShow);
+// const btnShow = document.createElement('button');
+// btnShow.id = 'btn-show';
+// btnShow.classList = 'btn waves-effect waves-light blue';
+// btnShow.innerText = 'Mostrar/Ocultar formulario de creación';
+// btnShow.addEventListener('click', () => toggleCreateEditForm());
+// container.appendChild(btnShow);
+
 // [DOM] Vincula lógica de botón de crear
 const btnAdd = document.getElementById('btn-add');
 btnAdd.addEventListener('click', () => addNewShoeToList());
+// [DOM] Vincula lógica de botón de editar
+const btnEdit = document.getElementById('btn-edit');
+btnEdit.addEventListener('click', () => editShoeInList());
 
-
+// Init MaterializeCSS
+document.addEventListener('DOMContentLoaded', function() {
+  var selects = document.querySelectorAll('select');
+  M.FormSelect.init(selects);
+  var modals = document.querySelectorAll('.modal');
+  M.Modal.init(modals);
+});
