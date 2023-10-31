@@ -1,18 +1,25 @@
+:root {
+  --bg-red-color: #ff0000;
+  --bg-white-color: #ffffee;
+  --bg-black-color: #000011;
+  --bg-blue-color: #0000ff;
+}
+
 /* Colors */
 .bg-red {
-  background-color: #ff0000;
+  background-color: var(--bg-red-color);
 }
 
 .bg-white {
-  background-color: #ffffee;
+  background-color: var(--bg-white-color);
 }
 
 .bg-black {
-  background-color: #000011;
+  background-color: var(--bg-black-color);
 }
 
 .bg-blue {
-  background-color: #0000ff;
+  background-color: var(--bg-blue-color);
 }
 
 /* Margins */

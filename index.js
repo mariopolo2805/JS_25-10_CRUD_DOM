@@ -124,12 +124,22 @@ const openModal = () => {
   document.getElementById('price').value = '';
 }
 
+// [Helper] - GENERATE ID
+const generateID = () => {
+  const id = Math.floor(Math.random() * (99999 - 10000 + 1) + 10000);
+  const alredyExist = list.find(shoe => shoe.id === id);
+  if (alredyExist) {
+    return generateID();
+  }
+  return id;
+}
+
 // [Helper] - ADD
 const addNewShoeToList = () => {
   const name = document.getElementById('name').value;
   const color = document.getElementById('color').value;
   const price = document.getElementById('price').value;
-  const id = Math.floor(Math.random() * (99999 - 10000 + 1) + 10000);
+  const id = generateID();
   const shoe = {
     id,
     name,
@@ -166,7 +176,7 @@ const editElement = (shoe) => {
 
 // [Helper] - EDIT
 const editShoeInList = () => {
-  const id = document.getElementById('id').value;
+  const id = parseInt(document.getElementById('id').value);
   const name = document.getElementById('name').value;
   const color = document.getElementById('color').value;
   const price = document.getElementById('price').value;
