@@ -1,0 +1,40 @@
+:root {
+  --bg-red-color: #ff0000;
+  --bg-white-color: #ffffee;
+  --bg-black-color: #000011;
+  --bg-blue-color: #0000ff;
+}
+
+/* Colors */
+.bg-red {
+  background-color: var(--bg-red-color);
+}
+
+.bg-white {
+  background-color: var(--bg-white-color);
+}
+
+.bg-black {
+  background-color: var(--bg-black-color);
+}
+
+.bg-blue {
+  background-color: var(--bg-blue-color);
+}
+
+/* Margins */
+.ml-20 {
+  margin-left: 20px !important;
+}
+
+/* Overwrite MaterializeCSS */
+.modal {
+  min-height: 30%;
+}
+
+.modal-footer {
+  position: absolute;
+  bottom: 0;
+  height: auto !important;
+  padding: 24px !important;
+}

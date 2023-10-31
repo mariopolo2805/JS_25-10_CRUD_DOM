@@ -57,6 +57,14 @@ const bbddStr = sessionStorage.getItem('bbdd_shoes');
 const list = JSON.parse(bbddStr) ?? backup_list;
 // sessionStorage.setItem('bbdd_shoes', JSON.stringify(list))
 
+// [DOM] Helpers
+const updateSelect = (select) => {
+  var instance = M.FormSelect.getInstance(select);
+  instance.destroy();
+  var selects = document.querySelectorAll('select');
+  M.FormSelect.init(selects);
+};
+
 
 // [DOM] Vars
 const container = document.getElementById('container');
@@ -102,14 +110,28 @@ const removeElement = (shoe, list, liElement) => {
 /***********************************************/
 
 // [Helper] - ADD
-const toggleCreateEditForm = () => {
-  // FIXME: :)
-  document.getElementById('create-and-edit-form').classList.toggle('hide');
+const openModal = () => {
+  // Close modal
+  const modal = document.getElementById('create-and-edit-form');
+  const instance = M.Modal.getInstance(modal);
+  instance.open();
   document.getElementById('btn-edit').classList.add('hide');
   document.getElementById('btn-add').classList.remove('hide');
   document.getElementById('name').value = '';
-  document.getElementById('color').value = '';
+  const select = document.getElementById('color');
+  select.value = '';
+  updateSelect(select);
   document.getElementById('price').value = '';
+}
+
+// [Helper] - GENERATE ID
+const generateID = () => {
+  let id = Math.floor(Math.random() * (99999 - 10000 + 1) + 10000);
+  const alredyExist = list.find(shoe => shoe.id === id);
+  if (alredyExist) {
+    id = generateID(); // Recursividad
+  }
+  return id; // Patada de Inception parriba! :)
 }
 
 // [Helper] - ADD
@@ -117,7 +139,7 @@ const addNewShoeToList = () => {
   const name = document.getElementById('name').value;
   const color = document.getElementById('color').value;
   const price = document.getElementById('price').value;
-  const id = Math.floor(Math.random() * (99999 - 10000 + 1) + 10000);
+  const id = generateID();
   const shoe = {
     id,
     name,
@@ -145,14 +167,16 @@ const editElement = (shoe) => {
   document.getElementById('btn-add').classList.add('hide');
   document.getElementById('id').value = shoe.id;
   document.getElementById('name').value = shoe.name;
-  document.getElementById('color').value = shoe.color;
+  const select = document.getElementById('color');
+  select.value = shoe.color;
+  updateSelect(select);
   document.getElementById('price').value = shoe.price;
   M.updateTextFields();
 }
 
 // [Helper] - EDIT
 const editShoeInList = () => {
-  const id = document.getElementById('id').value;
+  const id = parseInt(document.getElementById('id').value);
   const name = document.getElementById('name').value;
   const color = document.getElementById('color').value;
   const price = document.getElementById('price').value;
@@ -196,14 +220,9 @@ list.forEach((shoe, index) => {
   generateEventListeres(index, shoe, liElement);
 });
 
-// [DOM] Añade en el DOM el botón de mostrar
-// const btnShow = document.createElement('button');
-// btnShow.id = 'btn-show';
-// btnShow.classList = 'btn waves-effect waves-light blue';
-// btnShow.innerText = 'Mostrar/Ocultar formulario de creación';
-// btnShow.addEventListener('click', () => toggleCreateEditForm());
-// container.appendChild(btnShow);
-
+// [DOM] Vincula lógica de botón para abrir la modal
+const btnModal = document.getElementById('btn-modal');
+btnModal.addEventListener('click', () => openModal());
 // [DOM] Vincula lógica de botón de crear
 const btnAdd = document.getElementById('btn-add');
 btnAdd.addEventListener('click', () => addNewShoeToList());

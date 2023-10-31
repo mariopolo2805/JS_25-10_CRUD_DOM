@@ -46,20 +46,3 @@ html, body {
 .btn + .btn {
   margin-left: 12px;
 }
-
-/* Colors */
-.bg-red {
-  background-color: #ff0000;
-}
-
-.bg-white {
-  background-color: #ffffee;
-}
-
-.bg-black {
-  background-color: #000011;
-}
-
-.bg-blue {
-  background-color: #0000ff;
-}
